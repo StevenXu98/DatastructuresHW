@@ -15,6 +15,15 @@ int ListLength_nhp(Plist L);
 Plist ListGet_hp(Plist L ,int n);
 Plist ListGet_nhp(Plist L ,int n);
 
+Plist ListLocate_hp(Plist L, int data);
+Plist ListLocate_nhp(Plist L, int data);
+
+Plist ListInsert_hp(Plist L, Plist p, int data);
+Plist ListInsert_nhp(Plist L, Plist p, int data);
+
+Plist ListDelete_hp(Plist L, int data);
+Plist ListDelete_nhp(Plist L, int data);
+
 
 int main()
 {
@@ -103,3 +112,117 @@ Plist ListGet_nhp(Plist L ,int n)
 	return L;
 }
 
+Plist ListLocate_hp(Plist L, int data)
+{
+	L = L->next;
+	while (L && (L->data != data)){
+		L = L->list;
+	}
+	return L;
+
+}
+
+Plist ListLocate_nhp(Plist L, int data)
+{
+	while (L && (L->data != data)){
+		L = L->list;
+	}
+	return L;
+}
+
+Plist ListInsert_hp(Plist L, Plist p, int data)
+{
+	Plist q ,pre;
+	q = (Snode*)malloc(sizeof(Snode));
+	if(q = NULL){
+		printf("malloc fail");
+		exit(0);
+	}
+	q->data = data;
+
+	pre = L;
+
+	while(pre && (pre->next != p)){
+		pre = pre->next;
+	}
+
+	q->next = pre->next;
+	pre->next = q;
+
+	return L;
+}
+
+Plist ListInsert_nhp(Plist L, Plist p, int data)
+{
+	Plist q, pre, *pL;
+	pL = &L; 
+	q = (Snode*)malloc(sizeof(Snode));
+	if(q = NULL){
+		printf("malloc fail");
+		exit(0);
+	}
+	q->data = data;
+
+	if(p == L){
+		q->next = L;
+		*pL = q;
+		return L;
+	}
+
+	pre = L;
+	while(pre && (pre->next != p)){
+		pre = pre->next;
+	}
+
+	q->next = pre->next;
+	pre->next = q;
+
+	return L;
+}
+
+Plist ListDelete_hp(Plist L, int data)
+{
+	Plist pre;
+	while(pre && (pre->next->data != data))
+		pre = pre->next;
+
+	temp = pre->next;
+	if(temp == NULL){
+		printf("no found\n");
+		return L;
+	}else{
+		pre-next = pre->next->next;
+	}
+
+	free(temp);
+
+	return L;
+
+}
+
+Plist ListDelete_nhp(Plist L, int data)
+{
+	Plist pre, temp;
+	Plist *pL;
+	pL = &L;
+
+	while(pre && (pre->next->data != data))
+		pre = pre->next;
+
+	temp = pre->next;
+
+	if(temp == NULL){
+		printf("no found\n");
+		return L;
+	}else{
+		if(temp == L){
+			*pL = temp->next;
+			return L;
+		}else{
+			pre->next = pre->next->next;
+		}
+	}
+	free(temp);
+
+	return L;
+}
