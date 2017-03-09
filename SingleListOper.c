@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Snode
+typedef struct node
 {
 	int data;
-	struct Snode *next;
+	struct node *next;
 } Snode, *Plist;
 
-void ListInit_hp(Plist L);
-void ListInit_nhp(Plist L);
+Plist ListInit_hp();
+void ListInit_nhp();
 
 int ListLength_hp(Plist L);
 int ListLength_nhp(Plist L);
@@ -47,7 +47,7 @@ int main()
 	int judge = 1;
 	char oper;
 
-	int input;
+	int input,input2;
 
 
 	int data[5] = { 1, 3, 5, 7, 9};
@@ -59,17 +59,21 @@ int main()
 	if(judge){
 		while ((oper=getchar()) != '\n'){
 			switch(oper){
-				case 'i': ListInit_hp(phead_h);break;
-				case 'l': ListLength_hp(phead_h);break;
+				case 'i': phead_h = ListInit_hp();break;
+				case 'l': printf("%d \n",ListLength_hp(phead_h));break;
 				case 'g': printf("please input the number you want to get:");
-						scanf("%d", &input);pget = ListGet_hp(phead_h, input);break;
+						  scanf("%d", &input);pget = ListGet_hp(phead_h, input);break;
 				case 'L': printf("please input the data you want to find:");
-						scanf("%d", &input);ListLocate_hp(phead_h, input);break;
-				case 'I': printf("please input the data you want to insert:");scanf("%d", &input);
-						ListInsert_hp(phead_h, pget, input);break;
-				case 'd': printf("please input the data you want to delete:");
-						scanf("%d", &input);ListDelete_hp(phead_h, input);break;
-				case 'c': ListHCreate_hp(phead_h, data);break;
+						  scanf("%d", &input);ListLocate_hp(phead_h, input);break;
+				
+				case 'I': printf("please input the data you want to insert:");scanf("%d", &input2);
+						  printf("please input the number you want to get :");scanf("%d", &input);
+						  pget = ListGet_hp(phead_h, input);
+						  ListInsert_hp(phead_h, pget, input2);break;
+				
+				case 'd': printf("please input the data you want to delete:");scanf("%d", &input);
+						  ListDelete_hp(phead_h, input);break;
+				case 'c': phead_h = ListHCreate_hp(phead_h, data);break;
 				case 'm': ListMerge(phead_h, phead2_h, result_h);break;
 				case 'p': ListPrint_h(phead_h);break;
 				case 'P': ListPrint_h(result_h);break;
@@ -80,8 +84,8 @@ int main()
 	}else{
 		while ((oper=getchar()) != '\n'){
 			switch(oper){
-				case 'i': ListInit_hp(phead_nh);break;
-				case 'l': ListLength_hp(phead_nh);break;
+				case 'i': phead_nh = ListInit_hp();break;
+				case 'l': printf("%d \n",ListLength_hp(phead_nh));break;
 				case 'g': printf("please input the number you want to get:");
 						scanf("%d", &input);pget = ListGet_nhp(phead_nh, input);break;
 				case 'L': printf("please input the data you want to find:");
@@ -100,26 +104,30 @@ int main()
 }//main
 
 
-void ListInit_hp(Plist L)
+Plist ListInit_hp()//ok
 {
+	Plist L;
 	L = (Snode *)malloc(sizeof(Snode));
 	if(L == NULL){
 		printf("malloc fail");
 		exit(0);
 	}
 	L->next = NULL;	
+	return L;
 }
 
 void ListInit_nhp(Plist L)
 {
-	L->next = NULL;
+	Plist *pl;
+	pl = &L; 
+	(*pl)->next = NULL;
 }
 
-int ListLength_hp(Plist L)
+int ListLength_hp(Plist L)//ok
 {
 	int length = 0;
 	L = L->next;
-	while(L->next != NULL){
+	while(L != NULL){
 		L = L->next;
 		length++;
 	}
@@ -137,7 +145,7 @@ int ListLength_nhp(Plist L)
 	return length;
 }
 
-Plist ListGet_hp(Plist L ,int n)
+Plist ListGet_hp(Plist L ,int n)//ok
 {
 	L = L->next;
 	int i = 1;
@@ -158,7 +166,7 @@ Plist ListGet_nhp(Plist L ,int n)
 	return L;
 }
 
-Plist ListLocate_hp(Plist L, int data)
+Plist ListLocate_hp(Plist L, int data)//ok
 {
 	L = L->next;
 	while (L && (L->data != data)){
@@ -176,11 +184,11 @@ Plist ListLocate_nhp(Plist L, int data)
 	return L;
 }
 
-Plist ListInsert_hp(Plist L, Plist p, int data)
+Plist ListInsert_hp(Plist L, Plist p, int data)//ok
 {
 	Plist q ,pre;
-	q = (Snode*)malloc(sizeof(Snode));
-	if(q = NULL){
+	q = (Snode *)malloc(sizeof(Snode));
+	if(q == NULL){
 		printf("malloc fail");
 		exit(0);
 	}
@@ -203,7 +211,7 @@ Plist ListInsert_nhp(Plist L, Plist p, int data)
 	Plist q, pre, *pL;
 	pL = &L; 
 	q = (Snode*)malloc(sizeof(Snode));
-	if(q = NULL){
+	if(q == NULL){
 		printf("malloc fail");
 		exit(0);
 	}
@@ -226,9 +234,10 @@ Plist ListInsert_nhp(Plist L, Plist p, int data)
 	return L;
 }
 
-Plist ListDelete_hp(Plist L, int data)
+Plist ListDelete_hp(Plist L, int data)//ok
 {
 	Plist pre, temp;
+	pre = L;
 	while(pre && (pre->next->data != data))
 		pre = pre->next;
 
@@ -273,7 +282,7 @@ Plist ListDelete_nhp(Plist L, int data)
 	return L;
 }
 
-Plist ListHCreate_hp(Plist L, int d[5])
+Plist ListHCreate_hp(Plist L, int d[5])//ok
 {
 	L = (Snode *)malloc(sizeof(Snode));
 	if(L == NULL){
@@ -293,6 +302,7 @@ Plist ListHCreate_hp(Plist L, int d[5])
 		p->next = L->next;
 		L->next = p;
 	}//if
+	return L;
 }
 
 Plist ListHCreate_nhp(Plist L, int d[5])
@@ -339,13 +349,14 @@ void ListMerge(Plist la, Plist lb, Plist lc)
 	free(pb);
 }
 
-void ListPrint_h(Plist L)
+void ListPrint_h(Plist L)//ok
 {
-	if(L = NULL){
+	L = L->next;
+	if(L == NULL){
 		printf("no found\n");
 		return ;
 	}
-	while(L->next != NULL){
+	while(L != NULL){
 		printf("%d ", L->data);
 		L = L->next;
 	}
@@ -354,8 +365,8 @@ void ListPrint_h(Plist L)
 
 void ListPrint_nh(Plist L)
 {
-	L = L->next;
-	if(L = NULL){
+
+	if(L == NULL){
 		printf("no found\n");
 		return ;
 	}
