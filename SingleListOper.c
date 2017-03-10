@@ -8,7 +8,6 @@ typedef struct node
 } Snode, *Plist;
 
 Plist ListInit_hp();
-void ListInit_nhp();
 
 int ListLength_hp(Plist L);
 int ListLength_nhp(Plist L);
@@ -84,17 +83,21 @@ int main()
 	}else{
 		while ((oper=getchar()) != '\n'){
 			switch(oper){
-				case 'i': phead_nh = ListInit_hp();break;
+				
 				case 'l': printf("%d \n",ListLength_hp(phead_nh));break;
 				case 'g': printf("please input the number you want to get:");
 						scanf("%d", &input);pget = ListGet_nhp(phead_nh, input);break;
 				case 'L': printf("please input the data you want to find:");
 						scanf("%d", &input);ListLocate_nhp(phead_nh, input);break;
-				case 'I': printf("please input the data you want to find:");scanf("%d", &input);
-						ListInsert_nhp(phead_nh, pget, input);break;
+				
+				case 'I': printf("please input the data you want to insert:");scanf("%d", &input2);
+						  printf("please input the number you want to get :");scanf("%d", &input);
+						  pget = ListGet_nhp(phead_nh, input);
+						  ListInsert_nhp(phead_nh, pget, input2);break;
+				
 				case 'd': printf("please input the data you want to delete:");
 						scanf("%d", &input);ListDelete_nhp(phead_nh, input);break;
-				case 'c': ListHCreate_nhp(phead_nh, data);break;
+				case 'c': phead_nh = ListHCreate_nhp(phead_nh, data);break;
 				case 'p': ListPrint_nh(phead_nh);break;
 				default : break;					
 			}//switch
@@ -116,12 +119,7 @@ Plist ListInit_hp()//ok
 	return L;
 }
 
-void ListInit_nhp(Plist L)
-{
-	Plist *pl;
-	pl = &L; 
-	(*pl)->next = NULL;
-}
+
 
 int ListLength_hp(Plist L)//ok
 {
@@ -138,7 +136,7 @@ int ListLength_hp(Plist L)//ok
 int ListLength_nhp(Plist L)
 {
 	int length = 0;
-	while(L->next != NULL){
+	while(L!= NULL){
 		L = L-> next;
 		length++;
 	}
@@ -291,7 +289,7 @@ Plist ListHCreate_hp(Plist L, int d[5])//ok
 	}
 	L->next = NULL;
 
-	for(int i = 0; i < 5; i++){
+	for(int i = 4; i >= 0; i--){
 		Plist p;
 		p = (Snode *)malloc(sizeof(Snode));
 		if(p == NULL){
@@ -308,10 +306,10 @@ Plist ListHCreate_hp(Plist L, int d[5])//ok
 Plist ListHCreate_nhp(Plist L, int d[5])
 {
 	L = (Snode *)malloc(sizeof(Snode));
-	L->data = d[0];
+	L->data = d[4];
 	L->next = NULL;
 
-	for(int i = 0; i < 5; i++){
+	for(int i = 1; i < 5; i++){
 		Plist p;
 		p = (Snode *)malloc(sizeof(Snode));
 		if(p == NULL){
@@ -322,6 +320,7 @@ Plist ListHCreate_nhp(Plist L, int d[5])
 		p->next = L->next;
 		L->next = p;
 	}//if
+	return L;
 }
 
 void ListMerge(Plist la, Plist lb, Plist lc)
@@ -370,7 +369,7 @@ void ListPrint_nh(Plist L)
 		printf("no found\n");
 		return ;
 	}
-	while(L->next != NULL){
+	while(L != NULL){
 		printf("%d ", L->data);
 		L = L->next;
 	}
