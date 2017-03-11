@@ -35,7 +35,7 @@ void ListPrint_h(Plist L);
 void ListPrint_nh(Plist L);
 
 
-int main()
+int main(int argc, char const *argv[])
 {
 	Plist phead_h;
 	Plist phead_nh;
@@ -108,6 +108,8 @@ int main()
 			fflush(stdin);
 		}//while
 	}//else
+
+	return 0;
 }//main
 
 
