@@ -147,6 +147,7 @@ void ListClear(PList L)
 {
 	PList p, q;
 	p = L->next;
+	if(L==NULL) NOFOUND;
 
 	while(p != L){
 		q = p->next;

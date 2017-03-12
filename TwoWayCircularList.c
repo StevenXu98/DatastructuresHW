@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
 {
 	Plist phead;
 	char input;
-	int array[3]= {  1, 3, 5,};
+	int array[5]= { 1, 3, 5, 7, 9,};
 
 	while((input = getchar())!='\n'){
 		switch(input){
@@ -54,15 +54,16 @@ Plist ListInit()
 void ListCreate(Plist L, int *array)
 {	
 	Plist p;
+	Plist h = L;
 
-	for(int i = 0; i < 2; i++){
+	for(int i = 0; i < 5; i++){
 		p = (Snode *)malloc(sizeof(Snode));
 		if(p == NULL) {printf("malloc fail\n");return ;}
 		p->data = array[i];
 		L->next = p;
 		p->pre = L;
-		L->pre->pre = p;
-		p->next = L->pre;
+		p->next = h;
+		h->pre = p;
 		L = L->next;
 	}
 
@@ -134,8 +135,8 @@ void ListClear(Plist L)
 void ListPrint(Plist L)
 {
 	Plist h = L;
-	
 	L = L->next;
+	if(L==NULL) NOFOUND;
 	
 	while(L != h){
 		printf("%d ", L->data);
