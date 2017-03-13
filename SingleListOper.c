@@ -6,8 +6,8 @@
 typedef struct node
 {
 	int data;
-	struct node *next;
-} Snode, *Plist;
+	struct node *next; 
+} Lnode, *Plist;
 
 Plist ListInit_hp();
 
@@ -116,7 +116,7 @@ int main(int argc, char const *argv[])
 Plist ListInit_hp()//ok
 {
 	Plist L;
-	L = (Snode *)malloc(sizeof(Snode));
+	L = (Lnode *)malloc(sizeof(Lnode));
 	if(L == NULL){
 		printf("malloc fail");
 		exit(0);
@@ -191,7 +191,7 @@ Plist ListLocate_nhp(Plist L, int data)//ok
 Plist ListInsert_hp(Plist L, Plist p, int data)//ok
 {
 	Plist q ,pre;
-	q = (Snode *)malloc(sizeof(Snode));
+	q = (Lnode *)malloc(sizeof(Lnode));
 	if(q == NULL){
 		printf("malloc fail");
 		exit(0);
@@ -214,7 +214,7 @@ Plist ListInsert_nhp(Plist L, Plist p, int data)//ok
 {
 	Plist q, pre, *pL;
 	pL = &L; 
-	q = (Snode*)malloc(sizeof(Snode));
+	q = (Lnode*)malloc(sizeof(Lnode));
 	if(q == NULL){
 		printf("malloc fail");
 		exit(0);
@@ -288,7 +288,7 @@ Plist ListDelete_nhp(Plist L, int data)//ok
 
 Plist ListHCreate_hp(Plist L, int d[5])//ok
 {
-	L = (Snode *)malloc(sizeof(Snode));
+	L = (Lnode *)malloc(sizeof(Lnode));
 	if(L == NULL){
 		printf("malloc fail");
 		exit(0);		
@@ -297,7 +297,7 @@ Plist ListHCreate_hp(Plist L, int d[5])//ok
 
 	for(int i = 4; i >= 0; i--){
 		Plist p;
-		p = (Snode *)malloc(sizeof(Snode));
+		p = (Lnode *)malloc(sizeof(Lnode));
 		if(p == NULL){
 			printf("malloc fail");
 			exit(0);
@@ -311,13 +311,13 @@ Plist ListHCreate_hp(Plist L, int d[5])//ok
 
 Plist ListHCreate_nhp(Plist L, int d[5])//ok
 {
-	L = (Snode *)malloc(sizeof(Snode));
+	L = (Lnode *)malloc(sizeof(Lnode));
 	L->data = d[0];
 	L->next = NULL;
 
 	for(int i = 4; i > 0; i--){
 		Plist p;
-		p = (Snode *)malloc(sizeof(Snode));
+		p = (Lnode *)malloc(sizeof(Lnode));
 		if(p == NULL){
 			printf("malloc fail");
 			exit(0);

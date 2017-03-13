@@ -7,7 +7,7 @@
 typedef struct node{
 	int data;
 	struct node *next;
-}Snode, *PList;
+}Lnode, *PList;
 
 PList ListInit();
 void ListCreate(PList, int*);
@@ -48,7 +48,7 @@ int main(int argc, char const *argv[])
 PList ListInit()
 {
 	PList p;
-	p = (Snode *)malloc(sizeof(Snode));
+	p = (Lnode *)malloc(sizeof(Lnode));
 	if(p == NULL) {printf("malloc fail \n"); exit(0);}
 	p->next = p;
 	return p;
@@ -59,7 +59,7 @@ void ListCreate(PList L, int* array)
 	PList p;
 
 	for(int i = 0; i < 5; i++){	
-		p = (Snode *)malloc(sizeof(Snode));
+		p = (Lnode *)malloc(sizeof(Lnode));
 		if(p == NULL) {	printf("malloc fail \n");return ;}
 		
 		p->data = array[i];
@@ -73,7 +73,7 @@ void ListInsert(PList L)
 {
 	PList p,pre;
 	int c;
-	p = (Snode *)malloc(sizeof(Snode));
+	p = (Lnode *)malloc(sizeof(Lnode));
 	if(p == NULL) {	printf("malloc fail \n");return ;};
 
 	printf("please input the data: ");

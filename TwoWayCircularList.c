@@ -8,7 +8,7 @@ typedef struct node
 	struct node *pre;
 	int data;
 	struct node *next;
-}Snode, *Plist;
+}Lnode, *Plist;
 
 Plist ListInit();
 void ListCreate(Plist, int *);
@@ -43,7 +43,7 @@ int main(int argc, char const *argv[])
 Plist ListInit()
 {
 	Plist p;
-	p = (Snode *)malloc(sizeof(Snode));
+	p = (Lnode *)malloc(sizeof(Lnode));
 	if(p == NULL) {printf("malloc fail\n");return 0;}
 	p->pre = p;
 	p->next = p;
@@ -57,7 +57,7 @@ void ListCreate(Plist L, int *array)
 	Plist h = L;
 
 	for(int i = 0; i < 5; i++){
-		p = (Snode *)malloc(sizeof(Snode));
+		p = (Lnode *)malloc(sizeof(Lnode));
 		if(p == NULL) {printf("malloc fail\n");return ;}
 		p->data = array[i];
 		L->next = p;
@@ -84,7 +84,7 @@ void ListInsert(Plist L)
 {
 	Plist p,q;
 	int c;
-	p = (Snode *)malloc(sizeof(Snode));
+	p = (Lnode *)malloc(sizeof(Lnode));
 	if(p == NULL) {	printf("malloc fail \n");return ;};
 
 	printf("please input the data: ");
