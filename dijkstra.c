@@ -5,10 +5,10 @@
 #define N 6 
 
 typedef struct{
- 	char vexs[MAXNUM];
- 	int edges[MAXNUM][MAXNUM];
+ 	char vexs[N];
+ 	int edges[N][N];
  	int n ,e;		//定点数与边数
-}AdjGragh;
+}AdjGraph;
 
 void dijkstra(AdjGraph G, int v0, int *path,int *dist)
 {
