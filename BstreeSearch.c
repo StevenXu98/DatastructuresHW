@@ -30,7 +30,7 @@ Pnode bst_search2(Pnode p, int e)
 			p = p->rchild;
 		}
 	}
-	return p;
+	return hp;
 }
 
 
@@ -55,12 +55,12 @@ void bst_insert(Pnode *pp, int e)
 }
 
 
-void bst_create(int *a, int n)
+Pnode bst_create(int *a, int n)
 {
 	int i;
-	Pnode *p = NULL;
+	Pnode p = NULL;
 	for(i = 0; i < n; ++i){
-		bst_insert(p, a[i]);
+		bst_insert(&p, a[i]);
 	}
 }
 
@@ -73,7 +73,7 @@ int main()
 
 	bst_create(a, 5);
 
-	 
+
 
 	return 0;
 }
