@@ -29,6 +29,23 @@ void hash_create1(int *a, int n, int *hash, int m)
 	} //for
 } //hash_create1
 
+void hash_search1(int *hash, int m, int key)
+{
+	int d
+	for(d = 0; d < m; ++d){
+		if(hash[key mod m+d] == -1){
+			printf("no found ");
+			return ;
+		}
+		if(hash[key mod m+d] == key){
+			printf("found %d ", key);
+			return;
+		}
+	}
+	printf("no found & full");
+	return ;
+}
+
 void hash_create2(int *a, int n, Lhash *hash, int m)
 {
 	int i ;
@@ -43,3 +60,27 @@ void hash_create2(int *a, int n, Lhash *hash, int m)
 		} //else
 	} // for
 } // hash_create2
+
+void hash_search2(Lhash *hash, int key)
+{
+	while(hash[key mod m]){
+		if(hash[key mod m]->data == -1){
+			printf("no found");
+			return ;
+		}
+		if(hash[key mod m]->data == key){
+			printf("found %d", key);
+			return ;
+		}
+		hash[key mod m] = hash[key mod m]->next;
+	}
+	printf("no found");
+	return ;
+}
+
+int main()
+{
+	
+
+	return 0;
+}
