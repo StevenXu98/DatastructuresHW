@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct node{
+typedef struct node
+{
 	int data;
 	struct node *rchild;
 	struct node *lchild;
@@ -35,4 +36,5 @@ void search_min(Pnode p; int x)
 		}else if(p->data > x) p = p->lchild;
 		else p = p->rchild;
 	}
+	printf("no found");
 }
